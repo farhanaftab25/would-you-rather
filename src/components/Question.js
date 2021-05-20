@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 function Question(props) {
-    console.log(props);
     const { question, questions, users } = props;
 
     return (

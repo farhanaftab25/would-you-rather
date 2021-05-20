@@ -115,10 +115,6 @@ let questions = {
   },
 }
 
-function generateUID () {
-  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
-}
-
 export function _getUsers () {
   return new Promise((res, rej) => {
     setTimeout(() => res({...users}), 1000)
@@ -131,26 +127,15 @@ export function _getQuestions () {
   })
 }
 
-function formatQuestion ({ optionOneText, optionTwoText, author }) {
-  return {
-    id: generateUID(),
-    timestamp: Date.now(),
-    author,
-    optionOne: {
-      votes: [],
-      text: optionOneText,
-    },
-    optionTwo: {
-      votes: [],
-      text: optionTwoText,
-    }
-  }
-}
+
 
 export function _saveQuestion (question) {
   return new Promise((res, rej) => {
     const authedUser = question.author;
-    const formattedQuestion = formatQuestion(question);
+    // const formattedQuestion = formatQuestion(question);
+    const formattedQuestion = question;
+
+    console.log(formattedQuestion);
 
     setTimeout(() => {
       questions = {

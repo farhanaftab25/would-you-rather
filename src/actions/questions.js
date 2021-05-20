@@ -1,5 +1,5 @@
-// import { saveLikeToggle, saveTweet } from '../utils/api';
-
+import { saveQuestion } from '../utils/api';
+import { formatQuestion } from '../utils/helpers';
 
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
 // export const TOGGLE_TWEET = 'TOGGLE_TWEET';
@@ -27,17 +27,17 @@ function addQuestion(question) {
     }
 }
 
-export function handleAddQuestion(text, replyingTo) {
-    // return (dispatch, getState) => {
-    //     const { authedUser } = getState();
-    //     dispatch(showLoading());
-
-    //     return saveTweet({text, 'author': authedUser, replyingTo})
-    //         .then((tweet) => {
-    //             console.log("Tweet", tweet);
-    //             dispatch(addTweet(tweet));
-    //         }).then(() => dispatch(hideLoading()));
-    // }
+export function handleAddQuestion(optionOneText, optionTwoText) {
+    return (dispatch, getState) => {
+        const { authedUser } = getState();
+        // dispatch(showLoading());
+        console.log("authed user", authedUser);
+        return saveQuestion(formatQuestion({optionOneText, optionTwoText, author: authedUser}))
+            .then((question) => {
+                console.log("Question", question);
+                dispatch(addQuestion(question));
+            }).then(() => console.log("Hide Loading"));
+    }
 }
 
 

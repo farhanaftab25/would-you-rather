@@ -20,25 +20,24 @@ export default function questions(state = {}, action) {
         //         }
         //     }
         case ADD_QUESTION:
-            const { tweet } = action
+            const { question } = action
 
-            console.log("Tweet", tweet);
+            console.log("Question", question);
 
 
-            let replyingTo = {}
-            if (tweet.replyingTo !== null) {
-                replyingTo = {
-                [tweet.replyingTo]: {
-                    ...state[tweet.replyingTo],
-                    'replies': state[tweet.replyingTo].replies.concat([tweet.id])
-                    }
-                }
-            }
-            console.log(replyingTo);
+            // let replyingTo = {}
+            // if (tweet.replyingTo !== null) {
+            //     replyingTo = {
+            //     [tweet.replyingTo]: {
+            //         ...state[tweet.replyingTo],
+            //         'replies': state[tweet.replyingTo].replies.concat([tweet.id])
+            //         }
+            //     }
+            // }
+            // console.log(replyingTo);
             return {
                 ...state,
-                [action.tweet.id]: action.tweet,
-                ...replyingTo,
+                [action.question.id]: action.question,
             }
 
         default :

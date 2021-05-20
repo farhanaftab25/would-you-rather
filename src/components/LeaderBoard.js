@@ -7,7 +7,7 @@ function LeaderBoard(props) {
     return (
         <div>
             {userIds && userIds.map(id => (
-                <div className='row justify-content-center'>
+                <div className='row justify-content-center' key={id}>
                     <div className="col-6">
                         <div className="card mb-2" style={{ maxWidth: 540 }}>
                             <div className="row g-0 align-items-center">

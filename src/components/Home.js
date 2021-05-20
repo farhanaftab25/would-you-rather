@@ -20,18 +20,20 @@ class Home extends React.Component {
         }
     }
 
-    componentDidMount() {
-        this.setState((prevState) => ({
-            questions: this.props.questions
-        }));
-    }
+    // componentDidMount() {
+    //     console.log("Component mounted");
+    //     this.setState((prevState) => ({
+    //         questions: this.props.questions
+    //     }));
+    // }
 
     render() {
-        console.log(this.props);
         const { questions } = this.props;
+        console.log("Store Questions", questions);
+        console.log("Questions", this.state.questions);
         return (
             <div>
-                <div class="input-group mb-3">
+                <div className="input-group mb-3">
                     <button
                         className="btn btn-info"
                         name="unanswered"
@@ -43,7 +45,7 @@ class Home extends React.Component {
                         onClick={this.handleClick}>Answered Question
                     </button>
                 </div>
-                <ListQuestion questions={this.state.questions}/>
+                <ListQuestion questions={questions}/>
 
             </div>
 

@@ -11,7 +11,7 @@ function Nav(props) {
                     <Link className="nav-link active" to="/home">Home</Link>
                 </li>
                 <li className="nav-item">
-                    <Link className="nav-link" to="/new">Create Question</Link>
+                    <Link className="nav-link" to="/add">New Question</Link>
                 </li>
                 <li className="nav-item">
                     <Link className="nav-link" to="/leaderBoard">LeaderBoard</Link>
