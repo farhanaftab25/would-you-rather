@@ -135,8 +135,6 @@ export function _saveQuestion (question) {
     // const formattedQuestion = formatQuestion(question);
     const formattedQuestion = question;
 
-    console.log(formattedQuestion);
-
     setTimeout(() => {
       questions = {
         ...questions,

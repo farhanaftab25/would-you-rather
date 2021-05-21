@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { setAuthedUser } from '../actions/authedUser';
 
 class Login extends React.Component {
     state = {
-        user: ''
+        user: '',
+        toHome: false
     };
 
     handleChange = (event) => {
@@ -17,8 +19,16 @@ class Login extends React.Component {
         event.preventDefault();
         const {dispatch} = this.props;
         dispatch(setAuthedUser(this.state.user));
+
+        this.setState((prevState) => ({
+            user: '',
+            toHome: true
+        }));
     }
     render() {
+        if (this.state.toHome === true) {
+            return <Redirect to='/home' />
+        }
         const { users } = this.props;
 
         return (
@@ -34,14 +44,6 @@ class Login extends React.Component {
                             {Object.keys(users).map(user => <option key={user} value={user}>{users[user].name}</option>)}
                         </select>
                         <button className="btn btn-primary mt-2">Login</button>
-                        {/* <ul>
-                            {Object.keys(users).map(user => (<li>
-                                <img className="rounded-circle"
-                                width={50}
-                                src={`${process.env.PUBLIC_URL}/assets/avatars/${users[user].avatarURL}`}
-                                alt={user}/>
-                            </li>))}
-                        </ul> */}
                     </form>
                 </div>
             </div>

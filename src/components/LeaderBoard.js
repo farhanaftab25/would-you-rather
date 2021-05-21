@@ -1,9 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 
 function LeaderBoard(props) {
     const { users, userIds } = props;
+    if (props.authedUser === null) {
+        return <Redirect to='/login' />
+    }
     return (
         <div>
             {userIds && userIds.map(id => (
@@ -11,7 +15,7 @@ function LeaderBoard(props) {
                     <div className="col-6">
                         <div className="card mb-2" style={{ maxWidth: 540 }}>
                             <div className="row g-0 align-items-center">
-                                <div className="col-md-3">
+                                <div className="col-md-3 text-center">
                                     <img style={{height: 80}}
                                         src={`${process.env.PUBLIC_URL}/assets/avatars/${users[id].avatarURL}`}
                                         alt={id}
@@ -41,13 +45,14 @@ function LeaderBoard(props) {
     )
 }
 
-function mapStateToProps({users, questions}) {
+function mapStateToProps({users, questions, authedUser}) {
     const userIds = Object.keys(users).sort((a, b) => {
         const scoreForB = Object.keys(users[b].answers).length + Object.keys(users[b].questions).length;
         const scoreForA = Object.keys(users[a].answers).length + Object.keys(users[a].questions).length
         return scoreForB - scoreForA;
     });
     return {
+        authedUser,
         userIds,
         users,
         questions

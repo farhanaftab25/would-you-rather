@@ -1,55 +1,56 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import ListQuestion from './ListQuestion';
 
 
 class Home extends React.Component {
     state = {
-        questions: []
+        buttonPressed: 'unanswered'
     }
     handleClick = (event) => {
         const { name } = event.target;
         if (name === 'answered') {
             this.setState((prevState) => ({
-                questions: this.props.answeredQuestions
+                buttonPressed: name
             }))
         } else if (name === 'unanswered') {
             this.setState((prevState) => ({
-                questions: this.props.questions
+                buttonPressed: name
             }))
         }
     }
 
-    // componentDidMount() {
-    //     console.log("Component mounted");
-    //     this.setState((prevState) => ({
-    //         questions: this.props.questions
-    //     }));
-    // }
-
     render() {
-        const { questions } = this.props;
-        console.log("Store Questions", questions);
-        console.log("Questions", this.state.questions);
+        if (this.props.authedUser === null) {
+            return <Redirect to='/login' />
+        }
+        let questions = this.props.questions;
+        const { buttonPressed } = this.state;
+        if (buttonPressed === 'answered') {
+            questions = this.props.answeredQuestions;
+        }
+
         return (
-            <div>
-                <div className="input-group mb-3">
-                    <button
-                        className="btn btn-info"
-                        name="unanswered"
-                        onClick={this.handleClick}>Unanswered Question
-                    </button>
-                    <button
-                        className="btn btn-info"
-                        name="answered"
-                        onClick={this.handleClick}>Answered Question
-                    </button>
+            <div className="row justify-content-center">
+                <div className="col-6">
+                    <div className="input-group justify-content-center">
+                        <button
+                            className={`btn btn-outline-primary ${buttonPressed === 'unanswered' ? 'active' : ''}`}
+                            name="unanswered"
+                            onClick={this.handleClick}>Unanswered Question
+                        </button>
+                        <button
+                            className={`btn btn-outline-primary ${buttonPressed === 'answered' ? 'active' : ''}`}
+                            name="answered"
+                            onClick={this.handleClick}>Answered Question
+                        </button>
+                    </div>
                 </div>
                 <ListQuestion questions={questions}/>
 
             </div>
-
-        )
+        );
     }
 }
 function mapStateToProps({authedUser, users, questions}) {
@@ -77,6 +78,7 @@ function mapStateToProps({authedUser, users, questions}) {
     }
 
     return {
+        authedUser,
         questions: []
     }
 }

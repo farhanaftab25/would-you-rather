@@ -1,13 +1,13 @@
 import React from 'react';
 import Nav from './Nav';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import Login from './Login';
 import Home from './Home';
 import AddNewQuestion from './AddNewQuestion';
+import QuestionPoll from './QuestionPoll';
 import LeaderBoard from './LeaderBoard';
 import { connect } from 'react-redux';
 import { handleInitialData } from '../actions/shared';
-
 
 class App extends React.Component {
 
@@ -22,7 +22,7 @@ class App extends React.Component {
 				<hr />
 				<Switch>
 					<Route exact path='/'>
-						I am home
+						{this.props.authedUser === null ? <Redirect to='/login' /> : <Redirect to='/home' />}
 					</Route>
 					<Route path="/home">
 						<Home />
@@ -36,10 +36,17 @@ class App extends React.Component {
 					<Route path='/add'>
 						<AddNewQuestion />
 					</Route>
+					<Route path='/questions/:question_id'>
+						<QuestionPoll />
+					</Route>
 				</Switch>
 			</div>
 		);
 	}
 }
-
+function mapStateToProps({authedUser}) {
+	return {
+		authedUser
+	}
+}
 export default connect()(App);

@@ -49,8 +49,8 @@ class AddNewQuestion extends React.Component {
                         <div className="card-body">
                             <p className="card-text">Complete the Question</p>
                             <h5 className="card-title">Would you rather...</h5>
-                            <form onSubmit={this.handleSubmit}>
-                                <div className="mb-3">
+                            <form onSubmit={this.handleSubmit} className="text-center">
+                                <div className="">
                                     <input
                                         type="text"
                                         className="form-control"
@@ -59,7 +59,7 @@ class AddNewQuestion extends React.Component {
                                         value={this.state.optionOne}
                                         onChange={this.handleChange}/>
                                 </div>
-                                <div className="text-center">OR</div>
+                                <h5 className="m-0">OR</h5>
                                 <div className="mb-3">
                                     <input
                                         type="text"
@@ -69,11 +69,13 @@ class AddNewQuestion extends React.Component {
                                         value={this.state.optionTwo}
                                         onChange={this.handleChange}/>
                                 </div>
-                                <button
-                                    className="btn btn-primary"
-                                    disabled={this.isDisabled()}>
-                                        Submit
-                                </button>
+                                <div>
+                                    <button
+                                        className="btn btn-primary"
+                                        disabled={this.isDisabled()}>
+                                            Submit
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     </div>
