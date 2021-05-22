@@ -6,42 +6,45 @@ import ListQuestion from './ListQuestion';
 
 class Home extends React.Component {
     state = {
-        buttonPressed: 'unanswered'
+        pollCategory: 'unanswered'
     }
     handleClick = (event) => {
         const { name } = event.target;
         if (name === 'answered') {
             this.setState((prevState) => ({
-                buttonPressed: name
+                pollCategory: name
             }))
         } else if (name === 'unanswered') {
             this.setState((prevState) => ({
-                buttonPressed: name
+                pollCategory: name
             }))
         }
     }
 
     render() {
-        if (this.props.authedUser === null) {
+        if (this.props.authedUser === null || !this.props.authedUser) {
             return <Redirect to='/login' />
         }
-        let questions = this.props.questions;
-        const { buttonPressed } = this.state;
-        if (buttonPressed === 'answered') {
+
+        const { pollCategory } = this.state;
+
+        let questions = this.props.unansweredQuestions;
+
+        if (pollCategory === 'answered') {
             questions = this.props.answeredQuestions;
         }
 
         return (
-            <div className="row justify-content-center">
+            <div className="row justify-content-center mt-4">
                 <div className="col-6">
                     <div className="input-group justify-content-center">
                         <button
-                            className={`btn btn-outline-primary ${buttonPressed === 'unanswered' ? 'active' : ''}`}
+                            className={`btn btn-outline-primary ${pollCategory === 'unanswered' ? 'active' : ''}`}
                             name="unanswered"
                             onClick={this.handleClick}>Unanswered Question
                         </button>
                         <button
-                            className={`btn btn-outline-primary ${buttonPressed === 'answered' ? 'active' : ''}`}
+                            className={`btn btn-outline-primary ${pollCategory === 'answered' ? 'active' : ''}`}
                             name="answered"
                             onClick={this.handleClick}>Answered Question
                         </button>
@@ -61,15 +64,13 @@ function mapStateToProps({authedUser, users, questions}) {
         const answeredQuestions = questionIds.filter(questionId => answers.includes(questionId));
 
         return {
-            questions: unansweredQuestions,
-            answeredQuestions: answeredQuestions
+            authedUser,
+            unansweredQuestions,
+            answeredQuestions
         }
     }
 
-    return {
-        authedUser,
-        questions: []
-    }
+    return {};
 }
 
 export default connect(mapStateToProps)(Home);

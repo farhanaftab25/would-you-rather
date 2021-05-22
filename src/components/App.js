@@ -22,10 +22,9 @@ class App extends React.Component {
 				<LoadingBar />
 				<div className='container mt-5'>
 					<Nav />
-					<hr />
 					{this.props.loading === true
-					? null
-					:
+						? null
+						:
 						<Switch>
 							<Route exact path='/'>
 								{this.props.authedUser === null ? <Redirect to='/login' /> : <Redirect to='/home' />}

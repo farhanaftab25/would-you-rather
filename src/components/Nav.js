@@ -5,7 +5,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 
 function Nav(props) {
     return (
-        <nav>
+        <nav className="border-bottom border-primary border-2 pb-2">
             <ul className="nav nav-pills nav-fill">
                 <li className="nav-item">
                     <NavLink className="nav-link" to="/home" activeClassName='active'>Home</NavLink>
@@ -18,12 +18,14 @@ function Nav(props) {
                 </li>
                 {(props.authedUser !== null) &&
                     <li className="nav-item">
+                        <span className="text-muted">Hello, {props.authedUser}</span>
                         <button
-                            className="nav-link"
+                            className="btn btn-outline-danger"
+                            style={{ marginLeft: '2em' }}
                             onClick={() => {
                                 props.dispatch(unSetAuthedUser());
                                 props.history.push(`/login`);
-                            }}>| Hello, {props.authedUser} |
+                            }}>
                             Logout
                         </button>
                     </li>}

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter, Redirect } from 'react-router-dom';
 import { handleSaveQuestionAnswer } from '../actions/questions';
 import PollResults from './PollResults';
+import Avatar from './Avatar';
 
 class VotingPoll extends React.Component {
     state = {
@@ -54,10 +55,7 @@ class VotingPoll extends React.Component {
                         <div className="card-body">
                             <div className="row">
                                 <div className="col-md-4 text-center align-self-center">
-                                    <img style={{height: 100}}
-                                        src={`${process.env.PUBLIC_URL}/assets/avatars/${user.avatarURL}`}
-                                        alt={author}
-                                    />
+                                    <Avatar height={100} avatarURL={user.avatarURL}/>
                                 </div>
                                 <div className="col-md-8">
                                     <h5 className="card-title">
@@ -120,6 +118,7 @@ function mapStateToProps ({ questions, users, authedUser }, props) {
 
     const question = questions[question_id];
     const user = question ? users[question.author] : null;
+
     return {
         pollCategory,
         selectedOption,
