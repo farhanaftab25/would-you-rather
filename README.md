@@ -9,6 +9,12 @@ In the app, users will be able to answer questions, see which questions they hav
 
 The `_DATA.js` file represents a fake database and methods that let you access the data. The only thing you need to edit in the ` _DATA.js` file is the value of `avatarURL`. Each user should have an avatar, so you’ll need to add the path to each user’s avatar.
 
+## TL;DR
+
+To get started:
+
+* install all project dependencies with `npm install`
+* start the development server with `npm start`
 
 ## Data
 
@@ -98,3 +104,8 @@ Your code will talk to the database via 4 methods:
 | authedUser | String | The id of the user who answered the question|
 | qid | String | The id of the question that was answered|
 | answer | String | The option the user selected. The value should be either `"optionOne"` or `"optionTwo"`|
+
+
+# Extra
+react-router-dom used for web navigation.
+react-redux-loading-bar for loading bar.
