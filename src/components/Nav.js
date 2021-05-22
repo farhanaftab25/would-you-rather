@@ -19,12 +19,13 @@ function Nav(props) {
                 {(props.authedUser !== null) &&
                     <li className="nav-item">
                         <button
-                            style={{ cursor: 'pointer' }}
                             className="nav-link"
                             onClick={() => {
                                 props.dispatch(unSetAuthedUser());
                                 props.history.push(`/login`);
-                            }}>({props.authedUser}) -- Logout</button>
+                            }}>| Hello, {props.authedUser} |
+                            Logout
+                        </button>
                     </li>}
             </ul>
         </nav>

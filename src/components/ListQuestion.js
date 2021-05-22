@@ -6,7 +6,7 @@ function ListQuestion(props) {
         <div className="row row-cols-1 row-cols-md-2 g-4 mt-1">
             {props.questions.map(question => <Question key={question} question={question}/>)}
         </div>
-    )
+    );
 }
 
 export default ListQuestion;

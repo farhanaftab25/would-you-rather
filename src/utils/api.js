@@ -1,8 +1,8 @@
-// import { connectAdvanced } from 'react-redux'
 import {
   _getUsers,
   _getQuestions,
   _saveQuestion,
+  _saveQuestionAnswer
 } from './_DATA.js'
 
 export function getInitialData () {
@@ -15,9 +15,9 @@ export function getInitialData () {
   }))
 }
 
-// export function saveLikeToggle (info) {
-//   return _saveLikeToggle(info)
-// }
+export function saveQuestionAnswer (info) {
+  return _saveQuestionAnswer(info)
+}
 
 export function saveQuestion (question) {
   return _saveQuestion(question)

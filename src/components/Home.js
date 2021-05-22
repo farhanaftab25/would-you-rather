@@ -55,22 +55,11 @@ class Home extends React.Component {
 }
 function mapStateToProps({authedUser, users, questions}) {
     if (authedUser !== null) {
-        const user = users[authedUser].answers;
-
-        // console.log(authedUser);
-        // console.log(users[authedUser]);
-
         const answers = Object.keys(users[authedUser].answers);
-
         const questionIds = Object.keys(questions).sort((a,b) => questions[b].timestamp - questions[a].timestamp);
-
         const unansweredQuestions = questionIds.filter(questionId => !answers.includes(questionId));
-
         const answeredQuestions = questionIds.filter(questionId => answers.includes(questionId));
-        // console.log(user.answers);
-        // console.log(answerQuestions);
-        // // console.log(questionsIds);
-        // console.log(unansweredQuestions);
+
         return {
             questions: unansweredQuestions,
             answeredQuestions: answeredQuestions

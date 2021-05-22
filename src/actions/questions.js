@@ -1,8 +1,11 @@
-import { saveQuestion } from '../utils/api';
+import { saveQuestion, saveQuestionAnswer } from '../utils/api';
 import { formatQuestion } from '../utils/helpers';
+import { addQuestionAnswerToAuthedUser, addQuestionToAuthedUser } from './users';
+import { showLoading, hideLoading } from 'react-redux-loading-bar';
+
 
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
-// export const TOGGLE_TWEET = 'TOGGLE_TWEET';
+export const ADD_QUESTION_ANSWER = 'ADD_QUESTION_ANSWER';
 export const ADD_QUESTION = 'ADD_QUESTION';
 
 
@@ -12,14 +15,14 @@ export function receiveQuestions(questions) {
         questions
     }
 }
-// function toggleTweet({ id, authedUser, hasLiked }) {
-//     return {
-//         type: TOGGLE_TWEET,
-//         id,
-//         authedUser,
-//         hasLiked
-//     }
-// }
+function addQuestionAnswer({ authedUser, qid, answer }) {
+    return {
+        type: ADD_QUESTION_ANSWER,
+        authedUser,
+        qid,
+        answer
+    }
+}
 function addQuestion(question) {
     return {
         type: ADD_QUESTION,
@@ -30,25 +33,24 @@ function addQuestion(question) {
 export function handleAddQuestion(optionOneText, optionTwoText) {
     return (dispatch, getState) => {
         const { authedUser } = getState();
-        // dispatch(showLoading());
-        console.log("authed user", authedUser);
+        dispatch(showLoading());
         return saveQuestion(formatQuestion({optionOneText, optionTwoText, author: authedUser}))
             .then((question) => {
-                console.log("Question", question);
                 dispatch(addQuestion(question));
-            }).then(() => console.log("Hide Loading"));
+                dispatch(addQuestionToAuthedUser(question, question.author));
+            }).then(() => dispatch(hideLoading()));
     }
 }
 
 
-// export function handleToggleTweets(info) {
-//     return (dispatch) => {
-//         dispatch(toggleTweet(info));
-//         return saveLikeToggle(info)
-//             .catch((e) => {
-//                 console.warn("Errors in tweet", e);
-//                 dispatch(toggleTweet(info));
-//                 alert("Erros");
-//             })
-//     }
-// }
+export function handleSaveQuestionAnswer(info) {
+    return (dispatch) => {
+        dispatch(showLoading());
+        return saveQuestionAnswer(info)
+            .then(() => {
+                dispatch(addQuestionAnswerToAuthedUser(info));
+                dispatch(addQuestionAnswer(info));
+                dispatch(hideLoading());
+            })
+    }
+}

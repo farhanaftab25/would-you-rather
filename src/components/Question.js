@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 
 function Question(props) {
     const { question, questions, users } = props;
-    // console.log(questions[question]);
     return (
         <div className='col'>
             <div className="card mb-3">
@@ -25,7 +24,7 @@ function Question(props) {
                     </div>
                     <div className="col-md-2">
                         <NavLink
-                            className="btn btn-sm btn-success"
+                            className="btn btn-sm btn-outline-success"
                             to={`/questions/${question}`}>
                                 view poll
                         </NavLink>
@@ -33,7 +32,7 @@ function Question(props) {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 
@@ -43,6 +42,6 @@ function mapStateToProps({questions, authedUser, users}, {question}) {
         questions,
         authedUser,
         users
-    }
+    };
 }
 export default connect(mapStateToProps)(Question);
