@@ -11,7 +11,7 @@ function ResultCard({question, selectedOption, option}) {
     return (
         <div className={`mt-2 card ${selectedOption === option ? 'border border-4 border-success' : ''}`}>
             <div className="card-body">
-                { question[option].text }
+                Would you rather { question[option].text } ?
             </div>
             <div className="card-body pt-0">
                 <div className="progress">

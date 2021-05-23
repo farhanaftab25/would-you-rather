@@ -6,8 +6,12 @@ import LeaderBoardCard from './LeaderBoardCard';
 
 function LeaderBoard(props) {
     const { users, userIds, authedUser } = props;
+
     if (authedUser === null) {
-        return <Redirect to='/login' />
+        return <Redirect to={{
+                    pathname: '/login',
+                    state: { from: '/leaderBoard' }
+                }} />
     }
     return (
         <div className="mt-4">

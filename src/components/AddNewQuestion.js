@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import { handleAddQuestion } from '../actions/questions';
 
 class AddNewQuestion extends React.Component {
@@ -34,8 +34,12 @@ class AddNewQuestion extends React.Component {
     }
     render() {
         if (this.props.authedUser === null) {
-            return <Redirect to='/login' />
+            return  <Redirect to={{
+                        pathname: '/login',
+                        state: { from: '/add' }
+                    }} />
         }
+
         if (this.state.toHome === true) {
             return <Redirect to='/home' />
         }
@@ -90,4 +94,4 @@ function mapStateToProps({authedUser}) {
         authedUser
     }
 }
-export default connect(mapStateToProps)(AddNewQuestion);
+export default withRouter(connect(mapStateToProps)(AddNewQuestion));

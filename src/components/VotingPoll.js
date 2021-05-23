@@ -33,12 +33,19 @@ class VotingPoll extends React.Component {
     render() {
         const { question, user, authedUser, selectedOption, pollCategory } = this.props;
 
+        console.log(this.props.location.pathname);
+
+
+
         if (authedUser === null) {
-            return <Redirect to="/login" />;
+            return <Redirect to={{
+                        pathname: `/login`,
+                        state: { from: `${this.props.location.pathname}` }
+                    }} />;
         }
 
         if (!question) {
-            return <h2 className="text-center">Not Found</h2>;
+            return <h2 className="text-center mt-5 text-muted">Not Found</h2>;
         }
 
         const author = question.author;

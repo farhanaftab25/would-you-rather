@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import { setAuthedUser } from '../actions/authedUser';
-
 class Login extends React.Component {
     state = {
         user: '',
-        toHome: false
+        goBack: false
     };
 
     handleChange = (event) => {
@@ -22,13 +21,16 @@ class Login extends React.Component {
 
         this.setState((prevState) => ({
             user: '',
-            toHome: true
+            goBack: this.props.location.state ? this.props.location.state.from : null
         }));
     }
     render() {
-        if (this.state.toHome === true) {
+        if (this.state.goBack) {
+            return <Redirect to={`${this.state.goBack}`} />
+        } else if (this.state.goBack === null) {
             return <Redirect to='/home' />
         }
+
         const { users } = this.props;
 
         return (
@@ -58,4 +60,4 @@ function mapStateToProps({ users }) {
     }
 }
 
-export default connect(mapStateToProps)(Login);
+export default withRouter(connect(mapStateToProps)(Login));
